@@ -1,9 +1,11 @@
 package com.example.dvc_code;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,6 +13,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class MainActivity extends AppCompatActivity {
     Socket socket;
@@ -33,28 +36,36 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    void NextActivity() {
+        Intent intent = new Intent(MainActivity.this,);
+    }
+
     class Connect extends Thread{
 
 
         public void run(){
-            TextView textView = (TextView) findViewById(R.id.textView);
+            EditText editText = (EditText)findViewById(R.id.editText);
             try {
                 /*
                 InetAddress addr = java.net.InetAddress.getByName("syureu.iptime.org");
                 String straddr = addr.getHostAddress();
                 */
 
-                socket = new Socket("61.105.240.85", 13799);
+                socket = new Socket("113.198.237.207", 13799);
                 writeSocket = new DataOutputStream(socket.getOutputStream());
-                byte[] b = textView.getText().toString().getBytes();
+                readSocket = new DataInputStream(socket.getInputStream());
+
+                byte[] b = editText.getText().toString().getBytes("utf-8");
                 writeSocket.write(b);
 
-                readSocket = new DataInputStream(socket.getInputStream());
-                readSocket.read(b);
-                String tmp = b.toString();
-                //Toast.makeText(getApplicationContext(), tmp, Toast.LENGTH_SHORT).show();
+                int recvCnt = readSocket.read(b);
+                byte[] formatted = new byte[recvCnt];
+                for(int i=0; i<recvCnt; i++) {
+                    formatted[i]=b[i];
+                }
+                editText.setText(new String(formatted, StandardCharsets.UTF_8));
             } catch (Exception e) {
-                //Toast.makeText(getApplicationContext(), "예외 발생", Toast.LENGTH_SHORT).show();
+                editText.setText(e.toString());
             }
         }
     }
