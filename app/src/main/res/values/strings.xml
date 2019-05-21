@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Dvc_code</string>
+    <string name="main_Text_View">닉네임 : </string>
+    <string name="main_Plain_Text_Hint">닉네임을 입력하세요.</string>
+    <string name="main_Button">접속</string>
+    <string name="room_Info_Refresh_Button">방 목록 새로고침</string>
+    <string name="room_Info_Enter_Button">방 만들기</string>
 </resources>

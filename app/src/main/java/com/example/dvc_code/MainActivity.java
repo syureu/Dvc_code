@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button = (Button) findViewById(R.id.button);
+        Button button = (Button) findViewById(R.id.mainActivityButton);
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -37,14 +37,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void NextActivity_with_Room_info(String str) {
-        Intent intent = new Intent(MainActivity.this,);
+        Intent intent = new Intent(MainActivity.this,RoomInfoActivity.class);
+        intent.putExtra("room_info",str);
+        startActivity(intent);
     }
 
     class Connect extends Thread{
-
-
         public void run(){
-            EditText editText = (EditText)findViewById(R.id.editText);
+            TextView textView = (TextView)findViewById(R.id.mainActivityTextView);
+            EditText editText = (EditText)findViewById(R.id.mainActivityEditText);
             try {
                 /*
                 InetAddress addr = java.net.InetAddress.getByName("syureu.iptime.org");
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
                 NextActivity_with_Room_info(new String(formatted, StandardCharsets.UTF_8));
             } catch (Exception e) {
-                editText.setText(e.toString());
+                textView.setText(e.toString());
             }
         }
     }
