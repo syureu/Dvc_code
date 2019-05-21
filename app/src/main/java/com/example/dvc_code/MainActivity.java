@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    void NextActivity() {
+    void NextActivity_with_Room_info(String str) {
         Intent intent = new Intent(MainActivity.this,);
     }
 
@@ -63,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
                 for(int i=0; i<recvCnt; i++) {
                     formatted[i]=b[i];
                 }
-                editText.setText(new String(formatted, StandardCharsets.UTF_8));
+
+                NextActivity_with_Room_info(new String(formatted, StandardCharsets.UTF_8));
             } catch (Exception e) {
                 editText.setText(e.toString());
             }
