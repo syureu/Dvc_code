@@ -16,9 +16,9 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
 public class MainActivity extends AppCompatActivity {
-    Socket socket;
-    DataOutputStream writeSocket;
-    DataInputStream readSocket;
+    static Socket socket;
+    static DataOutputStream writeSocket;
+    static DataInputStream readSocket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
