@@ -37,15 +37,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void NextActivity_with_Room_info(String str) {
-        Intent intent = new Intent(MainActivity.this,RoomInfoActivity.class);
-        intent.putExtra("room_info",str);
+        Intent intent = new Intent(MainActivity.this, RoomInfoActivity.class);
+        intent.putExtra("room_info", str);
         startActivity(intent);
     }
 
-    class Connect extends Thread{
-        public void run(){
-            TextView textView = (TextView)findViewById(R.id.mainActivityTextView);
-            EditText editText = (EditText)findViewById(R.id.mainActivityEditText);
+    class Connect extends Thread {
+        public void run() {
+            TextView textView = (TextView) findViewById(R.id.mainActivityTextView);
+            EditText editText = (EditText) findViewById(R.id.mainActivityEditText);
             try {
                 /*
                 InetAddress addr = java.net.InetAddress.getByName("syureu.iptime.org");
@@ -59,13 +59,15 @@ public class MainActivity extends AppCompatActivity {
                 byte[] b = editText.getText().toString().getBytes("utf-8");
                 writeSocket.write(b);
 
-                int recvCnt = readSocket.read(b);
-                byte[] formatted = new byte[recvCnt];
-                for(int i=0; i<recvCnt; i++) {
-                    formatted[i]=b[i];
+                int recvCnt;
+                String tmp = "";
+                while (true) {
+                    recvCnt = readSocket.read(b);
+                    tmp += new String(b, 0, recvCnt, StandardCharsets.UTF_8);
+                    if (tmp.indexOf("<EOF>") > -1) break;
                 }
-
-                NextActivity_with_Room_info(new String(formatted, StandardCharsets.UTF_8));
+                tmp = tmp.substring(0,tmp.length()-5);
+                NextActivity_with_Room_info(tmp);
             } catch (Exception e) {
                 textView.setText(e.toString());
             }

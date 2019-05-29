@@ -34,11 +34,11 @@ public class Message {
             if (room_enter_code == 0) {
                 ria.RoomEnterRequest_Success();
             } else if (room_enter_code == 1) {
-                //System.out.println("해당 방 번호를 찾을 수 없습니다.");
+                ria.handler.sendEmptyMessage(1);
             } else if (room_enter_code == 2) {
-                //System.out.println("방의 정원이 초과되었습니다.");
+                ria.handler.sendEmptyMessage(2);
             } else if (room_enter_code == 3) {
-                //System.out.println("비밀번호가 틀렸습니다.");
+                ria.handler.sendEmptyMessage(3);
             }
         }
     }

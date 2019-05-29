@@ -21,6 +21,7 @@ public class RoomEnterPasswordPopup extends Dialog {
         super(context);
         this.context = context;
         this.ria = ria;
+        this.room_number= room_number;
     }
 
     @Override
@@ -40,6 +41,7 @@ public class RoomEnterPasswordPopup extends Dialog {
                     return;
                 }
                 ria.RoomEnterRequest_Next(room_number, editText.getText().toString());
+                dismiss();
             }
         });
 

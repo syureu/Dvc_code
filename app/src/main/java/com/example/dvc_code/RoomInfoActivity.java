@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -26,7 +27,7 @@ public class RoomInfoActivity extends AppCompatActivity {
     String[] strArray;
     LinearLayout roomInfoActivityLinearLayout;
     Button roomInfoActivityRefreshButton, roomInfoActivityMakeButton;
-    RoomInfoActivity ria;
+    static RoomInfoActivity ria;
 
     public static Handler handler;
 
@@ -129,7 +130,7 @@ public class RoomInfoActivity extends AppCompatActivity {
     }
 
     void RoomEnterRequest(int room_number) {
-        if (lock_textView[room_number].getText().toString().equals("true")) {
+        if (lock_textView[room_number].getText().toString().equals("True")) {
             RoomEnterPasswordPopup repp = new RoomEnterPasswordPopup(this, this, room_number);
             repp.show();
         } else {
@@ -140,7 +141,7 @@ public class RoomInfoActivity extends AppCompatActivity {
     void RoomEnterRequest_Next(int room_number, String room_pw) {
         Message m = new Message();
         m.flags = 4;
-        m.room_number = room_number;
+        m.room_number = Integer.parseInt(rm_textView[room_number].getText().toString());
         m.room_pw = room_pw;
         new Connect(m).start();
     }
@@ -197,8 +198,20 @@ public class RoomInfoActivity extends AppCompatActivity {
         handler = new Handler() {
             @Override
             public void handleMessage(android.os.Message msg) {
-                super.handleMessage(msg);
-                SetRoom();
+                switch(msg.what) {
+                    case 0:
+                        SetRoom();
+                        break;
+                    case 1:
+                        Toast.makeText(getApplicationContext(), "해당 방 번호를 찾을 수 없습니다. 새로고침 하십시요.", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        Toast.makeText(getApplicationContext(), "해당 방은 정원 초과입니다. 새로고침 하십시요.", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        Toast.makeText(getApplicationContext(), "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
+                        break;
+                }
             }
         };
     }
