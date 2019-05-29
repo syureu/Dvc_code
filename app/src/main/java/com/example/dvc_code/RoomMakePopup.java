@@ -70,6 +70,7 @@ public class RoomMakePopup extends Dialog {
                 int tmp;
                 if (radioButton_max_2.isChecked()) tmp = 2;
                 else tmp = 3;
+                ria.handler.sendEmptyMessage(0);
                 ria.PopupRoomMakeRequest(editText_room_name.getText().toString(), tmp, checkBox_room_pw.isChecked(), editText_room_pw.getText().toString());
                 dismiss();
             }

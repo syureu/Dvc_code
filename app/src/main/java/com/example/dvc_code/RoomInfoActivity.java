@@ -146,6 +146,14 @@ public class RoomInfoActivity extends AppCompatActivity {
         new Connect(m).start();
     }
 
+    void RoomEnterRequest_Sequence(int room_number, String room_pw) {
+        Message m = new Message();
+        m.flags = 4;
+        m.room_number = room_number;
+        m.room_pw = room_pw;
+        new Connect(m).start();
+    }
+
     void RoomEnterRequest_Success() {
         Intent intent = new Intent(RoomInfoActivity.this, RoomInnerActivity.class);
         startActivity(intent);

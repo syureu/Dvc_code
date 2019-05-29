@@ -25,7 +25,7 @@ public class Message {
         }
         if (flags == 3) {
             if (room_make_success) {
-                ria.RoomEnterRequest_Next(room_number, room_pw);
+                ria.RoomEnterRequest_Sequence(room_number, room_pw);
             } else {
                 //System.out.println("방 개설 실패..");
             }
